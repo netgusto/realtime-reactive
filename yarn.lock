@@ -4613,8 +4613,9 @@ readdirp@^2.0.0:
     readable-stream "^2.0.2"
     set-immediate-shim "^1.0.1"
 
-"realtime-reactive@file:.yalc/realtime-reactive":
-  version "0.1.0-6cf97e0b"
+realtime-reactive@^0.2:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/realtime-reactive/-/realtime-reactive-0.2.1.tgz#a281e1de0e1fef90c884b22e62eec21b345487ac"
   dependencies:
     classnames "^2.2.5"
     deep-equal "^1.0.1"
