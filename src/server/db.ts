@@ -14,18 +14,17 @@ export function generateRandomDoc(): Doc {
 
 export function connectMockDB() {
 
+    const db = new loki('db.json');
+    const docs = db.addCollection('docs', {
+        unique: ['id'],
+        indices: ['id', 'rank', 'firstname', 'lastname'],
+    });
+
     // These docs to fill the DB before realtime updates start
     const initialData: Array<Doc> = [];
     for (let k = 0; k < 100; k++) {
         initialData.push(generateRandomDoc());
     }
-
-    const db = new loki('db.json');
-
-    const docs = db.addCollection('docs', {
-        unique: ['id'],
-        indices: ['id', 'rank', 'firstname', 'lastname'],
-    });
 
     docs.insert(initialData as any);
 
