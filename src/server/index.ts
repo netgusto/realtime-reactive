@@ -17,18 +17,21 @@ export default function startServer(ws: MockWS, log: (msg: string) => void) {
         1000 / 3
     );
 
-    const querySubscriptionHandler = new QuerySubscriptionHandler({
+    const subscriptionHandler = new QuerySubscriptionHandler({
         graphQLRunner: mockGQLServer,
         schema,
-        collections: {
-            docs: mockDb.getCollection('docs')
-        }
+    });
+
+    mockDb.collections.map(coll => {
+        coll.on('insert', (data: any) => subscriptionHandler.onChange(coll.name, 'insert', data));
+        coll.on('update', (data: any) => subscriptionHandler.onChange(coll.name, 'update', data));
+        coll.on('remove', (data: any) => subscriptionHandler.onChange(coll.name, 'delete', data));
     });
 
     // Realtime reactive GraphQL query subscription
     ws.subscribe('observequery', ({ query, variables }: { query: string, variables: any }, from, requestid) => {
 
-        const { subscription, errors } = querySubscriptionHandler.register(
+        const { subscription, errors } = subscriptionHandler.register(
             query,
             variables,
             (queryid: string, data: any, updatenum: number) => {
@@ -54,7 +57,7 @@ export default function startServer(ws: MockWS, log: (msg: string) => void) {
 
     // Realtime reactive GraphQL query unsubscription
     ws.subscribe('unobservequery', (subid: string, from, requestid) => {
-        const success = querySubscriptionHandler.unregister(subid);
+        const success = subscriptionHandler.unregister(subid);
         
         if (!requestid) { return; }
 
