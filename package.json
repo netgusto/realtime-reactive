@@ -10,7 +10,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts-ts": "2.13.0",
-    "realtime-reactive": "file:.yalc/realtime-reactive",
+    "realtime-reactive": "0.2.0",
     "recompose": "^0.26.0",
     "rxjs": "^5.5.6"
   },
