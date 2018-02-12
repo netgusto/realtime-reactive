@@ -9,8 +9,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts-ts": "2.13.0",
-    "realtime-reactive": "^0.2",
+    "realtime-reactive": "file:.yalc/realtime-reactive",
     "recompose": "^0.26.0",
     "rxjs": "^5.5.6"
   },
@@ -22,13 +21,14 @@
   },
   "devDependencies": {
     "@types/faker": "^4.1.2",
-    "@types/graphql": "^0.12.3",
+    "@types/graphql": "^0.12",
     "@types/jest": "^22.1.2",
     "@types/lokijs": "^1.5.1",
     "@types/node": "^9.4.4",
     "@types/prop-types": "^15.5.2",
     "@types/react-dom": "^16.0.3",
     "@types/recompose": "^0.24.4",
+    "react-scripts-ts": "2.13.0",
     "typescript": "^2.7.1"
   }
 }
