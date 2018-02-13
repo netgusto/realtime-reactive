@@ -4607,8 +4607,9 @@ readdirp@^2.0.0:
     readable-stream "^2.0.2"
     set-immediate-shim "^1.0.1"
 
-"realtime-reactive@file:.yalc/realtime-reactive":
-  version "0.2.3-f52e1fc6"
+realtime-reactive@*:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/realtime-reactive/-/realtime-reactive-0.2.4.tgz#bca6429cde88c61c5a3977910e858c069c7b3be3"
   dependencies:
     graphql "^0.13"
     graphql-tag "^2"
