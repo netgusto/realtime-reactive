@@ -1,4 +1,4 @@
-import { Action } from 'realtime-reactive/lib/client/state/store';
+import { Action } from '../../lib/realtime-reactive/client/state/store';
 
 import { ApplicationState } from './applicationstate';
 

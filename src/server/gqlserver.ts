@@ -5,7 +5,7 @@ import {
     GraphQLSchema,
 } from 'graphql';
 
-import { subscriptionGraphQLTypes } from 'realtime-reactive/lib/server';
+import { subscriptionGraphQLTypes } from '../lib/realtime-reactive/server';
 
 export const schema: GraphQLSchema = buildSchema(`
 

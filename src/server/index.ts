@@ -1,4 +1,4 @@
-import { QuerySubscription, QuerySubscriptionHandler } from 'realtime-reactive/lib/server';
+import { QuerySubscription, QuerySubscriptionHandler } from '../lib/realtime-reactive/server';
 
 import { MockWS } from '../mock/mockws';
 import graphqlServer, { schema } from './gqlserver';

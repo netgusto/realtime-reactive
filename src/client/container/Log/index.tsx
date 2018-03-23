@@ -1,4 +1,4 @@
-import connectState from 'realtime-reactive/lib/client/state/connect';
+import connectState from '../../../lib/realtime-reactive/client/state/connect';
 
 import { ApplicationState } from '../../store/applicationstate';
 import Log from '../../component/Log';

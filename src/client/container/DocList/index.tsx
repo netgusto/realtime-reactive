@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 
 import DocList from '../../component/DocList';
 
-import connectState from 'realtime-reactive/lib/client/state/connect';
-import connectData from 'realtime-reactive/lib/client/data/connect';
+import connectState from '../../../lib/realtime-reactive/client/state/connect';
+import connectData from '../../../lib/realtime-reactive/client/data/connect';
 
 import { selectDoc, sortList, browsePage, filterRank, log } from '../../store/action';
 

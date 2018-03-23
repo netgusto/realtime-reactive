@@ -2,9 +2,9 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Subject, Observable } from 'rxjs';
 
-import { makeStore } from 'realtime-reactive/lib/client/state/store';
-import StateProvider from 'realtime-reactive/lib/client/state/provider';
-import DataProvider from 'realtime-reactive/lib/client/data/provider';
+import { makeStore } from '../lib/realtime-reactive/client/state/store';
+import StateProvider from '../lib/realtime-reactive/client/state/provider';
+import DataProvider from '../lib/realtime-reactive/client/data/provider';
 
 import { MockWS } from '../mock/mockws';
 import { ApplicationState } from './store/applicationstate';
