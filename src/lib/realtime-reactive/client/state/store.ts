@@ -1,4 +1,4 @@
-import isPromise from 'is-promise';
+// import isPromise from 'is-promise';
 import isObservable from './isObservable';
 
 import { Observable } from 'rxjs/Observable';
@@ -10,27 +10,38 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/scan';
+import 'rxjs/add/observable/fromPromise';
 
 export interface Action { type: string; payload?: any; }
-export type AsyncAction = ((dispatch: Dispatch, state?: any) => Action);
 export type ActionThunk = ((dispatch: Dispatch, state?: any) => any);
-export type Dispatch = (action: EventuallyAction) => any;
+export type Dispatch = (action: EventuallyAction|Array<EventuallyAction>) => any;
 
-export type EventuallyAction = Action | AsyncAction | ActionThunk | Observable<Action> | Promise<Action>;
+export type EventuallyAction = Action | ActionThunk | Observable<Action>;
 
 export function makeStore<T>(initialState: T, reducers: object): {
     state$: BehaviorSubject<T>,
     dispatch: Dispatch,
 } {
 
-    const applyReducers = (state: T, action: Action): T => {
+    const applyReducers = (state: T, actions: Action|Array<Action>): T => {
 
-        if (!(action.type in reducers)) {
-            return state;
+        if (!Array.isArray(actions)) {
+            actions = [actions];
         }
 
-        return reducers[action.type](state, action);
+        for (const k in actions) {
+            if (!actions.hasOwnProperty(k)) { continue; }
+            const action = actions[k];
+            if (!(action.type in reducers)) {
+                continue;
+            }
+
+            state = reducers[action.type](state, action);
+        }
+
+        return state;
     };
 
     // state$ is the ApplicationState stream
@@ -39,13 +50,13 @@ export function makeStore<T>(initialState: T, reducers: object): {
     // state$.subscribe((state: T) => console.log('New STATE', state));
 
     // action$ is the (synchronous or async) action stream
-    const action$ = new BehaviorSubject<EventuallyAction>(initialState as any);   // any cast required to set
+    const action$ = new BehaviorSubject<Array<EventuallyAction>>(initialState as any);   // any cast required to set
     // folded state on action stream
 
     // Folding the action stream into the ApplicationState stream
     // Inspired by: http://rudiyardley.com/redux-single-line-of-code-rxjs/
     action$
-        .mergeMap(ensureObservableAndCatchErrors)
+        .concatMap(ensureObservableAndCatchErrors)
         .filter(filterErrors)
         // .do(action => console.log('ACTION DISPATCHED', action))
         .scan(applyReducers)
@@ -53,19 +64,26 @@ export function makeStore<T>(initialState: T, reducers: object): {
         .subscribe(state$);
 
     // Higher order function to send actions to the stream
-    const dispatch = (action: EventuallyAction): any => {
+    const dispatch = (actions: EventuallyAction|Array<EventuallyAction>): any => {
 
-        if (isObservable(action)) {
-            action$.next(action as Observable<Action>);
-        } else if (isPromise(action)) {
-            action$.next((Observable.fromPromise(action as Promise<Action>)));
-        } else if (typeof action === 'function') { // ActionThunk
-            return action(dispatch, state$.getValue());
-        } else {
-            action$.next(action);
+        if (!Array.isArray(actions)) {
+            actions = [actions];
         }
 
-        return action;
+        const observableActions = [];
+
+        for (const action of actions) {
+            if (isObservable(action)) {
+                observableActions.push(action as Observable<Action>);
+                // action$.next();
+            } else if (typeof action === 'function') { // ActionThunk
+                action(dispatch, state$.getValue());
+            } else {
+                observableActions.push(action as Action);
+            }
+        }
+
+        action$.next(observableActions);
     };
 
     return { state$, dispatch };
