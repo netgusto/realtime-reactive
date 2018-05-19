@@ -1,6 +1,6 @@
 import { QuerySubscription, QuerySubscriptionHandler } from '../lib/realtime-reactive/server';
 
-import { MockWS } from '../mock/mockws';
+import { MockWS } from '../lib/mockws';
 import graphqlServer, { schema } from './gqlserver';
 import { connectMockDB, generateRandomDoc } from './db';
 

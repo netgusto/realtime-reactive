@@ -7,7 +7,7 @@ import DocList from '../../component/DocList';
 import connectState from '../../../lib/realtime-reactive/client/state/connect';
 import connectData from '../../../lib/realtime-reactive/client/data/connect';
 
-import { selectDoc, sortList, browsePage, filterRank, log } from '../../store/action';
+import { sortList, browsePage, filterRank, log } from '../../store/action';
 
 ///////////////////////////////////////////////////////////////////////////////
 // DATA HOC
@@ -32,6 +32,7 @@ const observeQuery = (props: any, context: any, variables: any): Promise<Observa
                         rank
                         firstname
                         lastname
+                        color
                     }
                 }
 
@@ -48,7 +49,9 @@ const observeQuery = (props: any, context: any, variables: any): Promise<Observa
 
         return obs.map((update: any) => {
             const hasNodes = update.data.docs && update.data.docs.nodes;
+
             doLog((hasNodes ? 'full' : 'partial') + ' update (' + JSON.stringify(update).length + ' bytes)');
+
             return {
                 docs: update.data.docs ? update.data.docs.nodes : undefined,
                 matchCount: update.data.docs ? update.data.docs.matchCount : undefined,
@@ -65,6 +68,7 @@ const dataHydratedList = connectData({
         let rankFilter = { };
 
         switch (props.rank) {
+            // Filters are structured as expected by the ScalarResourceFilter GraphQL type
             case 'top': rankFilter = { rank: { operator: 'gte', value: 90000 } }; break;
             case 'bottom': rankFilter = { rank: { operator: 'lte', value: 10000 } }; break;
             default: { /**/ }
@@ -90,14 +94,12 @@ const mapStateToProps = (state: any, props: any, dispatch: any) => {
     return {
         ...props,
 
-        selectedDoc: state.selectedDoc,
         sort: state.sort,
-        limit: 10,
+        limit: 15,
         page: state.page,
         rank: state.rank,
 
         // Wiring actions
-        selectDoc: (id: number) => dispatch(selectDoc(id)),
         sortList: (sort: string) => dispatch(sortList(sort)),
         browsePage: (page: number) => dispatch(browsePage(page)),
         filterRank: (rank: string) => dispatch(filterRank(rank)),

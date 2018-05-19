@@ -1,10 +1,8 @@
 import { visit, ASTNode } from 'graphql';
 
-export default function pruneGQLQuery(ast: ASTNode, { removeResources, keepProps }:
-    { removeResources?: Array<string>, keepProps?: any } = {}): ASTNode {
-
-    if (!removeResources) { removeResources = []; }
-    if (!keepProps) { keepProps = []; }
+// Manipulates the Query AST to adapt it to the data requirements for the client update
+export default function pruneGQLQuery(ast: ASTNode, { removeResources, keepOnlyTheseProps }:
+    { removeResources?: Array<string>, keepOnlyTheseProps?: any } = {}): ASTNode {
 
     const context: {
         resource?: string,
@@ -19,6 +17,9 @@ export default function pruneGQLQuery(ast: ASTNode, { removeResources, keepProps
         enter(node: ASTNode, key: any, parent: any, path: any, ancestors: any) {
 
             const depth = ancestors.length;
+
+            if (!removeResources) { removeResources = []; }
+            if (!keepOnlyTheseProps) { keepOnlyTheseProps = []; }
 
             if (depth === 4) {
                 if (node.kind === 'Field') {
@@ -36,7 +37,7 @@ export default function pruneGQLQuery(ast: ASTNode, { removeResources, keepProps
                     const propName = node.name.value;
                     context.propPath.push(propName);
 
-                    if (!shouldKeepProp(context.resource as string, context.propPath, keepProps)) {
+                    if (!shouldKeepProp(context.resource as string, context.propPath, keepOnlyTheseProps)) {
                         context.propPath.pop();
                         return null;
                     }
@@ -72,14 +73,11 @@ export default function pruneGQLQuery(ast: ASTNode, { removeResources, keepProps
         }
     });
 
-    // console.log('usedVariables', usedVariables);
-
     return visit(prunedAST, {
         enter(node: ASTNode, key: any, parent: any, path: any, ancestors: any) {
 
-            // const depth = ancestors.length;
-
             if (node.kind === 'VariableDefinition') {
+                // Remove unused variable references from query
                 if (usedVariables.indexOf(node.variable.name.value) === -1) {
                     return null;
                 }

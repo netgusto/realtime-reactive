@@ -9,13 +9,11 @@ export interface Props {
     docs: Array<any>;
     matchCount: number;
     totalCount: number;
-    selectedDoc?: string;
     sort: string;
     rank: string;
     limit: number;
     page: number;
 
-    selectDoc: Function;
     sortList: Function;
     filterRank: Function;
     browsePage: Function;
@@ -23,11 +21,11 @@ export interface Props {
 
 function DocList(props: Props) {
 
-    const { docs, selectedDoc } = props;
+    const { docs } = props;
     const { matchCount, totalCount, sort, limit, page, rank } = props;
 
     // Actions
-    const { selectDoc, sortList, browsePage, filterRank } = props;
+    const { sortList, browsePage, filterRank } = props;
 
     return (
         <div>
@@ -46,8 +44,6 @@ function DocList(props: Props) {
                 <DocListItem
                     key={item.id}
                     item={item}
-                    selected={item.id === selectedDoc}
-                    onSelect={() => selectDoc(item.id)}
                 />
             ))}
 

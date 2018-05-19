@@ -1,10 +1,5 @@
 import { Action } from '../../lib/realtime-reactive/client/state/store';
 
-export const selectDoc = (msgid: Number): Action => ({
-    type: 'selectDoc',
-    payload: msgid,
-});
-
 export const sortList = (sort: string): Action => ({
     type: 'sortList',
     payload: sort,

@@ -75,7 +75,6 @@ export function makeStore<T>(initialState: T, reducers: object): {
         for (const action of actions) {
             if (isObservable(action)) {
                 observableActions.push(action as Observable<Action>);
-                // action$.next();
             } else if (typeof action === 'function') { // ActionThunk
                 action(dispatch, state$.getValue());
             } else {

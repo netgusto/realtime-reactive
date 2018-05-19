@@ -6,7 +6,7 @@ import { makeStore } from '../lib/realtime-reactive/client/state/store';
 import StateProvider from '../lib/realtime-reactive/client/state/provider';
 import DataProvider from '../lib/realtime-reactive/client/data/provider';
 
-import { MockWS } from '../mock/mockws';
+import { MockWS } from '../lib/mockws';
 import { ApplicationState } from './store/applicationstate';
 import { makeReducers } from './store/reducers';
 
@@ -17,10 +17,9 @@ export default function startClient(name: string, ws: MockWS, container: HTMLEle
 
     const initialState: ApplicationState = {
         connected: true,
-        selectedDoc: null,
         sort: '-rank',
         page: 1,
-        rank: 'bottom',
+        rank: 'all',
         log: [],
     };
 

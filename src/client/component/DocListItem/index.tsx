@@ -1,22 +1,19 @@
 import * as React from 'react';
-import cx from 'classnames';
 import { pure } from 'recompose';
-
-import './index.css';
+import * as contrast from 'contrast';
 
 export interface Props {
     item: any;
-    selected: boolean;
-    onSelect: (id: string) => void;
 }
 
 function ListItem(props: Props) {
-    const { item, selected, onSelect } = props;
+    const { item } = props;
+
+    const textColor = contrast(item.color) === 'light' ? 'black' : 'white';
 
     return (
-        <p className={cx({ selected })}>
-            <button onClick={() => onSelect(item.id)}>🎯</button> 
-            &nbsp;{item.rank} &mdash; {item.firstname} {item.lastname.toUpperCase()}
+        <p style={{ backgroundColor: item.color, color: textColor, padding: '5px' }}>
+            {item.rank} &mdash; <strong>{item.firstname}</strong> {item.lastname.toUpperCase()}
         </p>
     );
 }

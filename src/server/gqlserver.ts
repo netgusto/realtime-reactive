@@ -37,6 +37,7 @@ export const schema: GraphQLSchema = buildSchema(`
         rank: Int!
         firstname: String!
         lastname: String!
+        color: String!
     }
 
     input DocInput {

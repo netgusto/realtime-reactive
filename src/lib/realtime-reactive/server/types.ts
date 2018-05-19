@@ -4,19 +4,19 @@ export type QuerySubscription = {
     id: string;
     query: string;
     variables: any;
-    digest: Array<SubscribedResource>;
-    cbk: SubscriptionCbk;
+    resources: Array<SubscribedResource>;
+    onChange: SubscriptionCbk;
     ast: DocumentNode;
     updatenum: number;
 };
 
-export type SubscriptionCbk = (queryid: string, data: any, updatenum: number) => void;
+export type SubscriptionCbk = (subscriptionid: string, data: any, updatenum: number) => void;
 
 export type SubscribedResource = {
-    resource: string;
+    name: string;
     aggregates: any[];
     alias: string;
-    filters: any[];
+    filters: Array<Filter>;
     sort?: {
         prop: string;
         dir: number;
@@ -34,6 +34,11 @@ export type SubscribedResource = {
 export type ResourceQueryResult = {
     totalCount?: number;
     nodes?: Array<any>;
+};
+
+export type Filter = {
+    name: string,
+    getter: (variables: any) => any,
 };
 
 export type GraphQLRunner = (query: string, variables: Object) => Promise<any>;

@@ -1,5 +1,5 @@
 import { DocumentNode, FieldNode } from 'graphql';
-import { SubscribedResource } from './types';
+import { SubscribedResource, Filter } from './types';
 
 export default function normalizeQuerySubscription(ast: DocumentNode, variables: any):
     { queries: Array<SubscribedResource>, err: string | null } {
@@ -159,7 +159,7 @@ export default function normalizeQuerySubscription(ast: DocumentNode, variables:
         let sort: any;
         let offset: any;
         let limit: any;
-        const filters: Array<any> = [];
+        const filters: Array<Filter> = [];
 
         for (const arg of args) {
             switch (arg.name) {
@@ -176,7 +176,7 @@ export default function normalizeQuerySubscription(ast: DocumentNode, variables:
                     break;
                 }
                 default: {
-                    // filtre de propriété
+                    // value filter
                     filters.push(arg);
                 }
             }
@@ -222,7 +222,7 @@ export default function normalizeQuerySubscription(ast: DocumentNode, variables:
         }
 
         result.push({
-            resource: resourcename,
+            name: resourcename,
             alias: q.alias ? q.alias.value : resourcename,
             aggregates,
             filters,

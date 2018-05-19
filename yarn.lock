@@ -1727,6 +1727,12 @@ content-type@1.0.4, content-type@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/content-type/-/content-type-1.0.4.tgz#e138cc75e040c727b1966fe5e5f8c9aee256fe3b"
 
+contrast@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/contrast/-/contrast-1.0.1.tgz#839c66d8852269d33f4eb0a1b92d994bdd16385e"
+  dependencies:
+    hex-to-rgb "^1.0.0"
+
 convert-source-map@^1.4.0, convert-source-map@^1.5.0:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-1.5.1.tgz#b8278097b9bc229365de5c62cf5fcaed8b5599e5"
@@ -2809,6 +2815,16 @@ find-up@^2.0.0, find-up@^2.1.0:
   dependencies:
     locate-path "^2.0.0"
 
+flat-colors-groupped@^1.0.0:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/flat-colors-groupped/-/flat-colors-groupped-1.0.7.tgz#6d2676f066d0365cf180bdcbd99ddbcd0b9c9261"
+  dependencies:
+    flat-colors "^3.3.3"
+
+flat-colors@^3.3.3:
+  version "3.3.10"
+  resolved "https://registry.yarnpkg.com/flat-colors/-/flat-colors-3.3.10.tgz#22c5caa23fd3224139742dd8ed16081dde5a102c"
+
 flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
@@ -3270,6 +3286,10 @@ hawk@~6.0.2:
 he@1.1.x:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
+
+hex-to-rgb@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/hex-to-rgb/-/hex-to-rgb-1.0.1.tgz#100b9df126b32f2762adf8486be68c65ef8ed2a4"
 
 hmac-drbg@^1.0.0:
   version "1.0.1"
@@ -5792,6 +5812,13 @@ raf@3.4.0:
   dependencies:
     performance-now "^2.1.0"
 
+random-flat-colors@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/random-flat-colors/-/random-flat-colors-1.0.5.tgz#0b28a2c65436cc024fa17b19038fd7988c0192d4"
+  dependencies:
+    flat-colors-groupped "^1.0.0"
+    unique-random-array "^1.0.0"
+
 randomatic@^1.1.3:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/randomatic/-/randomatic-1.1.7.tgz#c7abe9cc8b87c0baa876b19fde83fd464797e38c"
@@ -7253,6 +7280,16 @@ unique-filename@^1.1.0:
   resolved "https://registry.yarnpkg.com/unique-filename/-/unique-filename-1.1.0.tgz#d05f2fe4032560871f30e93cbe735eea201514f3"
   dependencies:
     unique-slug "^2.0.0"
+
+unique-random-array@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/unique-random-array/-/unique-random-array-1.0.1.tgz#f29bda2a62be8860a703c4739c8f4fdb4d722cc7"
+  dependencies:
+    unique-random "^1.0.0"
+
+unique-random@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/unique-random/-/unique-random-1.0.0.tgz#ce3e224c8242cd33a0e77b0d7180d77e6b62d0c4"
 
 unique-slug@^2.0.0:
   version "2.0.0"

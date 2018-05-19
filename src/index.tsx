@@ -1,4 +1,4 @@
-import { MockWS } from './mock/mockws';
+import { MockWS } from './lib/mockws';
 
 import startServer from './server';
 import startClient from './client';
@@ -6,8 +6,8 @@ import startClient from './client';
 export default function demo() {
     const serverWs = new MockWS('server');
 
-    const clientAWs = new MockWS('clientA', { latency: 800, jitter: 600 });
-    const clientBWs = new MockWS('clientB', { latency: 0, jitter: 0 });
+    const clientAWs = new MockWS('clientA', { latency: 0, jitter: 0 });
+    const clientBWs = new MockWS('clientB', { latency: 300, jitter: 100 });
 
     clientAWs.connect(serverWs);
     clientBWs.connect(serverWs);
@@ -19,8 +19,8 @@ export default function demo() {
         el.insertBefore(node, el.children[0]);
     });
 
-    startClient('Client A: Slow+Jitty', clientAWs, document.getElementById('clientA') as HTMLElement);
-    startClient('Client B: Instant', clientBWs, document.getElementById('clientB') as HTMLElement);
+    startClient('Client A: Fast', clientAWs, document.getElementById('clientA') as HTMLElement);
+    startClient('Client B: Slow+Jitty', clientBWs, document.getElementById('clientB') as HTMLElement);
 }
 
 demo();

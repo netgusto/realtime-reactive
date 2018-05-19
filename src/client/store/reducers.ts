@@ -3,10 +3,6 @@ import { Action } from '../../lib/realtime-reactive/client/state/store';
 import { ApplicationState } from './applicationstate';
 
 export const makeReducers = () => ({
-    selectDoc: (state: ApplicationState, action: Action) => ({
-        ...state,
-        selectedDoc: action.payload
-    }),
     sortList: (state: ApplicationState, action: Action) => ({
         ...state,
         sort: action.payload
