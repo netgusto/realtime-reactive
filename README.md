@@ -1,4 +1,4 @@
-# realtime-reactive-demo
+# realtime-reactive
 
 ```bash
 $ yarn install
